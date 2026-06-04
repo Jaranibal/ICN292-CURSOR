@@ -1,4 +1,3 @@
-# ICN292-CURSOR
 # 📁 PDF → LaTeX Converter
 
 

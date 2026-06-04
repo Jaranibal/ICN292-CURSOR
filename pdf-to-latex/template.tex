@@ -1,0 +1,83 @@
+\documentclass[twocolumn, 11pt, letterpaper]{article}
+
+% ── Paquetes ─────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel} 
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{tabularx}
+
+% ── Geometría ────────────────────────────────────────────────
+\geometry{
+  letterpaper,
+  top=2.5cm,
+  headheight=15pt,
+  bottom=2.2cm,
+  left=1.8cm, right=1.8cm,
+  columnsep=0.7cm
+}
+
+% ── Formato de secciones (CORREGIDO) ─────────────────────────
+\titleformat{\section}
+  {\normalfont\bfseries\large}{\thesection.}{0.5em}{}
+  [\vspace{-3ex}\rule{\columnwidth}{0.4pt}] % Vspace negativo para subir la línea
+
+\titlespacing{\section}
+  {0pt}{0ex }{0ex} 
+  % {izq}{arriba}{distancia entre línea y texto}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\normalsize}{\thesubsection.}{0.5em}{}
+
+% ── Encabezado y pie ─────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+  \begin{picture}(0,0)
+    \put(-13.5, -63){\includegraphics[height=5.1cm]{logonegrousm}}
+  \end{picture}
+}
+\fancyhead[C]{\small\textbf{SIGLA RAMO} -- RAMO}
+\fancyhead[R]{\small TITULO}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% ── Título───────────────────────────────────
+\twocolumn[{%
+\vspace*{-0.5cm}
+\begin{center}
+  {\LARGE \textbf{TITULO REAL}}\\[4pt]
+  {\large RAMO -- SIGLA}\\[6pt]
+  \begin{tabular}{ll}
+    \textit{Benjamín Jara}  & \textit{202260594-4} \\
+  \end{tabular}\\[4pt]
+  {\small Universidad Técnica Federico Santa María \quad $\cdot$ \quad Semestre 2026-1}\\[3pt]
+  \rule{\textwidth}{0.6pt}\\[5pt]
+\end{center}
+}]
+
+
+\section*{Resultados}
+
+
+\section*{Análisis}
+
+
+\section*{Conclusión}
+
+
+
+\end{document}

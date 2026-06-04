@@ -1,0 +1,166 @@
+\documentclass[twocolumn, 11pt, letterpaper]{article}
+
+% ── Paquetes ─────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel} 
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{tabularx}
+
+% ── Geometría ────────────────────────────────────────────────
+\geometry{
+  letterpaper,
+  top=2.5cm,
+  headheight=15pt,
+  bottom=2.2cm,
+  left=1.8cm, right=1.8cm,
+  columnsep=0.7cm
+}
+
+% ── Formato de secciones (CORREGIDO) ─────────────────────────
+\titleformat{\section}
+  {\normalfont\bfseries\large}{\thesection.}{0.5em}{}
+  [\vspace{-3ex}\rule{\columnwidth}{0.4pt}] % Vspace negativo para subir la línea
+
+\titlespacing{\section}
+  {0pt}{0ex }{0ex} 
+  % {izq}{arriba}{distancia entre línea y texto}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\normalsize}{\thesubsection.}{0.5em}{}
+
+% ── Encabezado y pie ─────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+  \begin{picture}(0,0)
+    \put(-13.5, -63){\includegraphics[height=5.1cm]{logonegrousm}}
+  \end{picture}
+}
+\fancyhead[C]{\small\textbf{ICN 312-Par 1012} -- Econometría}
+\fancyhead[R]{\small Certamen 3}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% ── Título───────────────────────────────────
+\twocolumn[{%
+\vspace*{-0.5cm}
+\begin{center}
+  {\LARGE \textbf{Certamen 3}}\\[4pt]
+  {\large Econometría -- ICN 312-Par 1012}\\[6pt]
+  \begin{tabular}{ll}
+    \textit{Profesora: María Elisa Farías}  \\
+    \textit{Ayudantes: Anays Fuentes, Francisca Soto} \\
+  \end{tabular}\\[4pt]
+  {\small Universidad Técnica Federico Santa María \quad $\cdot$ \quad Julio 2025}\\[3pt]
+  \rule{\textwidth}{0.6pt}\\[5pt]
+\end{center}
+}]
+
+
+\section*{Resultados}
+
+\subsection*{1. Preguntas Conceptuales (comente con verdadero, falso o incierto)}
+
+\subsubsection*{1. (10 puntos)} Los coeficientes de un modelo de predicción usando Big Data no tienen una interpretación causal, ni tampoco determinística.
+R. Verdadero. En la predicción con Big Data se busca obtener predicciones eficientes, independientemente que los coeficientes tenga una interpretación causal o determinística del comportamiento de la variable dependiente.
+
+\subsubsection*{2. (20 puntos)} Y es una variable aleatoria con media $a$ y varianza $\sigma^2 = 4$. Para una muestra de tamaño $n = 20$, se puede afirmar que:
+\begin{enumerate}[label=\alph*)]
+    \item La predicción oráculo de Y está dada por Y, tal que el ECMP = 4.
+    R. Falso, en la predicción oráculo, el error de estimación es 0. Por lo tanto, la predicción óptima sería $Y_p = a$.
+    \item Si se utiliza Y/2 para predecir, el error de predicción será a/2 y el error cuadrático medio de predicción será inferior al de la predicción oráculo.
+    R. Falso. Si se utiliza Y/2 para predecir, el ECMP será: ECMP $= 4(1 + 1/4(n)) = 4,05 > 4$.
+\end{enumerate}
+
+\subsection*{2. Matemáticos}
+
+\subsubsection*{1. (15 puntos)} Sea el modelo de series de tiempo:
+$$ Y_t = \beta_0 + \beta_1 X_t + U_t $$
+En que $u_t = 0,5u_{t-1} + 0,2u_{t-2} + \epsilon_t$, con $E(\epsilon_t) = 0$; $Cov(\epsilon_t \epsilon_{t-j}) = 0$, para todo $j \neq 0$ y $Var(\epsilon_t) = \sigma^2 = 2$.
+\begin{enumerate}[label=\alph*)]
+    \item (10 puntos) Obtenga el valor esperado del error $u_t$ y su varianza.
+    R. El valor esperado de $u_t$:
+    Aplicando operadores de rezago:
+    $$ u_t(1 - 0,5L - 0,2L^2) = \epsilon_t $$
+    $$ U_t = \epsilon_t/(1-0,5L - 0,2L^2) $$
+    $$ E(u_t) = E(\epsilon_t/(1 - 0,5L - 0,2L^2)) = 0 $$
+    La varianza de $u_t$:
+    $$ \lambda_0 = 0,5\lambda_1 + 0,2\lambda_2 + \sigma^2_\epsilon $$
+    $$ \lambda_1 = 0,5\lambda_0 + 0,2\lambda_1 $$
+    $$ \lambda_2 = 0,5\lambda_1 + 0,2\lambda_0 $$
+    $$ \lambda_0 = 3,42 $$
+    \item (5 puntos) Si quisiera estimar el modelo de series de tiempo, qué problemas encontraría? Cómo lo resolvería?
+    R. El modelo presenta autocorrelación de los errores. Para corregir se debiera estimar el modelo usando Mínimos Cuadrados Generalizados en que la matriz $\Omega$ tendrá la forma:
+    $$ \Omega = \begin{pmatrix}
+        1 & \rho_1 & \rho_2 & \dots & \rho_{n-1} \\
+        \rho_1 & 1 & \rho_1 & \dots & \rho_{n-2} \\
+        \vdots & \vdots & \vdots & \ddots & \vdots \\
+        \rho_{n-1} & \rho_{n-2} & \rho_{n-3} & \dots & 1
+    \end{pmatrix} $$
+\end{enumerate}
+
+\subsubsection*{2. (25 puntos)} Los siguientes valores fueron obtenidos de una muestra de 33 observaciones para $X_1, X_2$ e $Y$:
+$\sum Y = 13,2$; $\sum x_1^2 = 4$; $\sum x_2^2 = 6$; $\sum x_1 x_2 = 2$; $\sum y^2 = 15$; con $\sum x_1 y = 20$; $\sum x_2 y = 55$.
+\begin{enumerate}[label=\alph*)]
+    \item (7 puntos) Estime el modelo de regresión lineal por MCO. Nota los valores están en desvios con respecto a la media.
+    R: Los estimadores MCO:
+    $$ \hat{\beta}_{MCO} = (x'x)^{-1}x'y $$
+    $$ \hat{\beta}_1 = 0,5; \hat{\beta}_2 = 9. $$
+    \item (8 puntos) Compare sus resultados utilizando el estimador de Ridge con $\lambda = 3$.
+    R. Los estimadores de Ridge:
+    $$ \hat{\beta}_R = [(x'x) + \lambda I]^{-1}x'y $$
+    $$ \hat{\beta}_R = \left[ \begin{pmatrix} 4 & 2 \\ 2 & 6 \end{pmatrix} + 3 \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \right]^{-1} \begin{pmatrix} 20 \\ 55 \end{pmatrix} $$
+    $$ \hat{\beta}_R = \begin{pmatrix} 1,186 \\ 5,847 \end{pmatrix} $$
+    \item (10 puntos) Si quisiera estimar el modelo ahora con el método de Lasso, qué valor de $\lambda$ debiera utilizar para reducir los parámetros a la mitad?
+    R. Los estimadores de Lasso quedarían:
+    $$ \hat{\beta}_L = \begin{pmatrix} 0,25 \\ 4,5 \end{pmatrix} $$
+\end{enumerate}
+
+\subsubsection*{3. (30 puntos)} Utilizando una muestra de 2.241 observaciones de la encuesta industrial ENIA, estime el siguiente modelo de regresión lineal:
+Para esto los valores de lambda deben ser:
+$$ \begin{pmatrix} \lambda_1 \\ \lambda_2 \end{pmatrix} = \begin{pmatrix} 20 \\ 55 \end{pmatrix} $$
+$$ \log Ventas_i = \beta_0+\beta_1 \log Capital_i + \beta_2 \log Wages_i + \beta_3 \log Emp_i + \beta_4 fem_i+u_i $$
+En que \textit{Emp} es el número de trabajadores de la empresa y \textit{fem} es el porcentaje de trabajadoras en el total de empleo.
+\begin{enumerate}[label=\alph*)]
+    \item (7 puntos) Obtenga la regresión muestral por Mínimos Cuadrados Ordinarios (MCO).
+    R. La función de regresión muestral:
+    $$ \hat{Y} = 4.12407+0.16474 \log Capital_i + 0.57278 \log Wages_i + 0.25824 \log Emp_i + -0.24090 fem_i $$
+    El error cuadrático medio de predicción: ECMP = 0.9516391.
+    \item (10 puntos) Compare utilizando el estimador de Ridge.
+    $$ \hat{Y} = 6.6588392 + 0.1529034 \log Capital_i + 0.3197852 \log Wages_i + 0.3268527 \log Emp_i + -0.2012497 fem_i $$
+    El valor de lambda óptimo es $\lambda = 0.134328$. El error cuadrático medio de predicción: ECMP = 0.9559461.
+    \item (10 puntos) Compare utilizando el estimador de Lasso.
+    R.
+    $$ \hat{Y} = 4.9629810 + 0.1219958 \log Capital_i + 0.5738017 \log Wages_i + 0.1282629 \log Emp_i + 0 fem_i $$
+    $\lambda=0.01544445$; ECMP = 0.9521685.
+    \item (3 puntos) En cuál de los tres modelos se obtiene una predicción más eficiente? Explique.
+    R: Según el ECMP, se encuentra la mejor predicción con MCO. Entre los modelos de Ridge y Lasso, la mejor predicción se obtiene con este último ya que tiene un menor ECMP y también un menor valor de lambda.
+\end{enumerate}
+
+\section*{Análisis}
+% No hay sección de análisis explícita en el documento original.
+
+\section*{Conclusión}
+% No hay sección de conclusión explícita en el documento original.
+
+\section*{Fórmulas Básicas}
+$$ \hat{\beta}_{MCO} = (x'x)^{-1}x'y $$
+$$ \hat{\beta}_R = [(x'x) + \lambda I]^{-1}x'y $$
+$$ ECMP = E[(Y - \hat{Y})^2] $$
+$$ ECMP = E[u^2 + (E(Y) - \hat{Y})^2] $$
+
+\end{document}
